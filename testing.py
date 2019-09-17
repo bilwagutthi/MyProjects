@@ -6,32 +6,27 @@ driver = webdriver.Firefox()
 driver.maximize_window()
 # Navigate to LinkedIn page
 driver.get("https://www.linkedin.com/")
-
- 
-signinbutton = driver.find_element_by_xpath('//a[@class="nav__button-secondary"]')  
+#Find Sign In button
+signinbutton = driver.find_element_by_xpath('//a[@class="nav__button-secondary"]')
+#Click Sign In button  
 signinbutton.click()
 # Wait for the new page to load
 time.sleep(3)
 # Verify user is Sign_In page
-try:
-    driver.find_element_by_xpath('//h1[@class="header__content__heading"]')
-except Exception as e:
-    #This pattern of catching all exceptions is ok when you are starting out
-    result_flag = False 
-else:
-    result_flag = True
-if result_flag is True:
+
+if driver.title == "LinkedIn Login, Sign in | LinkedIn":
     print("Sucess:Directing to sign in page")
 else:
     print("Unsuccesful:Directing to sign in page")
 
-#Enter text 
+#Enter Username field and enter text
 tbUserName=driver.find_element_by_xpath('//input[@id="username"]')
-tbUserName.send_keys("Bilwa")
+tbUserName.send_keys("Username")
+#Enter Username field and enter text
 tbPassword=driver.find_element_by_xpath('//input[@id="password"]')
-tbPassword.send_keys("Bilwa")
-time.sleep(3)
+tbPassword.send_keys("Password")
 
+time.sleep(3)
 
 # Close the browser   
 driver.close()
