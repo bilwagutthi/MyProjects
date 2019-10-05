@@ -10,7 +10,7 @@
     products against the number of products in the cart
  6) Close the browser
 
-Author : Bilwa Gutthi
+ Author : Bilwa Gutthi
 """
 
 from selenium import webdriver
