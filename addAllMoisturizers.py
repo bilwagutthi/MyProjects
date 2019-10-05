@@ -1,13 +1,14 @@
 """
-Find the most expensive moisturizer and add it to the cart.
+ Find the most expensive moisturizer and add it to the cart.
 
-SCOPE:
-1) Launch Firefox Driver
-2) Add all moisturizers to the cart
-3) Add that moisturizer to the cart
-4) Calculate sum of products
-5) Check if all the moisterizers are added by compareing the sum against the total of the cart
-6) Close the browser
+ SCOPE:
+ 1) Launch Firefox Driver
+ 2) Add all moisturizers to the cart
+ 3) Add that moisturizer to the cart
+ 4) Calculate number of products on the page
+ 5) Check if all the moisterizers are added by compareing the number of 
+    products against the number of products in the cart
+ 6) Close the browser
 
 Author : Bilwa Gutthi
 """
@@ -27,36 +28,31 @@ if browser.title!="The best moisturizers in the world!":
 else:
     print("Page loaded")
 
-# Creating a list with prizes of all moistirizers and finding the total
-sum_products=0
-prices=browser.find_elements_by_xpath('//div[@class="text-center col-4"]//descendant::p[contains(text(),"Price")]')
-for i in prices:
-    price=int(i.text.strip("Price: Rs. "))
-    sum_products=sum_products+price
 
-print("Sum is ",sum_products)
-# Clicking all add buttons
+# Finidng and clicking all add buttons
 add_buttons=browser.find_elements_by_xpath('//button[contains(text(),"Add")]')
-j=0
+no_of_Products=len(add_buttons)
+clicked_no=0
 for i in add_buttons:
     i.click()
-    j+=1
-    print("Added",j)
+    clicked_no+=1
+    print("No of add button clicked :",clicked_no)
+
+print("Total no of products added : ",no_of_Products)
 
 # Clicking on cart button to check if all moisterizer are added
 cart_button=browser.find_element_by_xpath('//button[@class="thin-text nav-link"]')
 cart_button.click()
 
-# Checking total against sum
-total_price=browser.find_element_by_xpath('//p[@id="total"]').text
-total_price=int(total_price.strip("Total: Rupees "))
-print("Total price in cart",total_price)
-if sum_products==total_price:
-    print("Successfully added all the moisterizers")
+# Checking total no of products in cart
+products_added=browser.find_elements_by_xpath('//tbody/tr')
+no_products_added=len(products_added)
+print("No of products in cart : ",no_products_added)
+
+if(no_of_Products==no_products_added):
+    print("Success : All products added")
 else:
-    print("Fail")
+    print("Fail : Unable to add all products")
 
-
-time.sleep(3)
 
 browser.close()
