@@ -91,8 +91,8 @@ print("\nMoisturizer with Almond and minimum price is\n ",second_product.find_el
 # Adding second product to the cart
 products_added.append(second_product.find_element_by_xpath('.//p[contains(text(),"Almond")]').text)
 second_product_add=second_product.find_element_by_xpath('.//button[text()="Add"]')
-second_product_add.click()
-print("_"*50)
+sec_product_add.click()
+print("_"*50)ond
 
 
 # Clicking on cart button to check if required sunscreens  are added

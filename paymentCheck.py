@@ -29,6 +29,8 @@
 
 from selenium import webdriver
 import time
+import random
+import string
 
 def get_cart_products():
     # Clicking on cart button to check if required sunscreens  are added
@@ -251,11 +253,16 @@ pay_button.click()
 
 time.sleep(3)
 
+# Switching to iframe
+
 iframe = browser.find_element_by_name('stripe_checkout_app')
 browser.switch_to.frame(iframe)
 print("Switched frame")
+
+# Entering details
 email_element=browser.find_element_by_xpath('//input[@type="email"]')
-email_element.send_keys("gooe@gmail.com")
+email="ggggjjjg@gmail.com" 
+email_element.send_keys(email)
 
 cardno_element=browser.find_element_by_xpath('//input[@placeholder="Card number"]')
 cardno_element.send_keys("4242424242424242")
@@ -278,7 +285,12 @@ phno_element.send_keys("8899776655")
 submit_element=browser.find_element_by_xpath('//button[@type="submit"]')
 submit_element.click()
 
+# Returning from iframe
+browser.switch_to.default_content()
 time.sleep(10)
+
+# Checking if payment successfull
+
 if (browser.current_url=="https://weathershopper.pythonanywhere.com/confirmation"):
     payment_check=browser.find_element_by_xpath('//h2[contains(text(),"PAYMENT")]').text
     if(payment_check=="PAYMENT SUCCESS"):
@@ -291,12 +303,6 @@ if (browser.current_url=="https://weathershopper.pythonanywhere.com/confirmation
 else:
     print("Some error in payment")
 
-
-
-"""
-email_element=browser.find_element_by_id('9e575880-ea92-11e9-8e88-e94f25918334')
-email_element.send_keys("google@gmail.com")
-"""
 
 time.sleep(3)
 
